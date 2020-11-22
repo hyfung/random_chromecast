@@ -22,6 +22,8 @@ def delete_video(path):
     """
     Takes in the full path to video, delete it
     """
+    print('deleting ' + path)
+    pass
 
 def main():
     """
