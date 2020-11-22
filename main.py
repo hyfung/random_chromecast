@@ -40,8 +40,8 @@ def main():
 
     while True:
         file = choose_video(directory)
-        cast_video(file)
-        delete_video(file)
+        cast_video(repr(file))
+        delete_video(repr(file))
         if not args['repeat']:
             exit()
     
