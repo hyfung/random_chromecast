@@ -16,14 +16,14 @@ def cast_video(path):
     """
     Takes in the full path to the video, invoke chromecast via VLC via os.system()
     """
-    pass
+    cmd = 'vlc %s --sout="#chromecast{ip=192.168.0.250}" --demux-filter=demux_chromecast' % path
+    os.system(cmd)
 
 def delete_video(path):
     """
     Takes in the full path to video, delete it
     """
     print('deleting ' + path)
-    pass
 
 def main():
     """
