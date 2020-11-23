@@ -9,8 +9,8 @@ import signal
 current_video = None
 
 def on_sigint():
-    os('pkill vlc')
-    delete_video(current_video)
+    # os('pkill vlc')
+    # delete_video(current_video)
     exit()
 
 def choose_video(directory) -> str:
@@ -34,7 +34,7 @@ def cast_video(path) -> None:
     """
     global current_video
     current_video = path
-    cmd = 'vlc %s --sout="#chromecast{ip=192.168.0.250}" --demux-filter=demux_chromecast' % path
+    cmd = 'cvlc %s --sout="#chromecast{ip=192.168.0.250}" --demux-filter=demux_chromecast --play-and-exit' % path
     os.system(cmd)
 
 def delete_video(path) -> str:
