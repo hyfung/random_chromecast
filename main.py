@@ -9,8 +9,8 @@ import signal
 current_video = None
 
 def on_sigint():
-    # os('pkill vlc')
-    # delete_video(current_video)
+    os('pkill vlc')
+    delete_video(current_video)
     exit()
 
 def choose_video(directory) -> str:
