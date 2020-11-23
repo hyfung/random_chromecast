@@ -4,6 +4,14 @@ import random
 import subprocess
 import os
 import argparse
+import signal
+
+current_video = None
+
+def on_sigint():
+    os('pkill vlc')
+    delete_video(current_video)
+    exit()
 
 def choose_video(directory) -> str:
     """
@@ -24,6 +32,8 @@ def cast_video(path) -> None:
     """
     Takes in the full path to the video, invoke chromecast via VLC via os.system()
     """
+    global current_video
+    current_video = path
     cmd = 'vlc %s --sout="#chromecast{ip=192.168.0.250}" --demux-filter=demux_chromecast' % path
     os.system(cmd)
 
@@ -32,13 +42,15 @@ def delete_video(path) -> str:
     Takes in the full path to video, delete it
     """
     print('deleting ' + path)
-    os.remove(path)
+    os.remove(path.strip('\''))
 
 def main():
     """
     This is the entrypoint, depending on the options passed to argparse it will go
     either one shot or repeatedly
     """
+    signal.signal(signal.SIGINT, on_sigint)
+
     ap = argparse.ArgumentParser()
     ap.add_argument("-d", "--dir", help="Full path to the folder", type=str,
                     default='/mnt/Media/Youtube/Play-n-delete')
