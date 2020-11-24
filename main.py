@@ -34,6 +34,7 @@ def cast_video(path) -> None:
     """
     global current_video
     current_video = path
+    print('[*] Casting %s' % path)
     cmd = 'cvlc %s --sout="#chromecast{ip=192.168.0.250}" --demux-filter=demux_chromecast --play-and-exit' % path
     os.system(cmd)
 
@@ -41,7 +42,7 @@ def delete_video(path) -> str:
     """
     Takes in the full path to video, delete it
     """
-    print('deleting ' + path)
+    print('[*] Deleting ' + path)
     os.remove(path.strip('\''))
 
 def main():
@@ -64,6 +65,7 @@ def main():
         file = choose_video(directory)
         cast_video(repr(file))
         delete_video(repr(file))
+        
         if not args['repeat']:
             exit()
     
