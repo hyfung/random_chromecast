@@ -35,7 +35,7 @@ def cast_video(path) -> None:
     global current_video
     current_video = path
     print('[*] Casting %s' % path)
-    cmd = 'cvlc %s --sout="#chromecast{ip=192.168.0.250}" --demux-filter=demux_chromecast --play-and-exit' % path
+    cmd = 'cvlc %s --sout="#chromecast{ip=192.168.0.250}" --rate %.2f --demux-filter=demux_chromecast --play-and-exit' % (args['rate'], path)
     os.system(cmd)
 
 def delete_video(path) -> str:
@@ -56,6 +56,7 @@ def main():
     ap.add_argument("-d", "--dir", help="Full path to the folder", type=str,
                     default='/mnt/Media/Youtube/Play-n-delete')
     ap.add_argument("-r", "--repeat", help="", action='store_true', default=False)
+    ap.add_argument("-s", "--speed", help="Playback speed", type=float, default=1.0)
     args = vars(ap.parse_args())
 
     directory = args['dir']
